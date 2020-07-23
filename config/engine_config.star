@@ -368,6 +368,7 @@ def engine_try_config(platform_args, fuchsia_ctl_version):
         repo = repos.ENGINE,
         add_cq = True,
         list_view_name = list_view_name,
+        properties = engine_properties(gcs_goldens_bucket = "flutter_logs"),
         **platform_args["linux"]
     )
     common.mac_try_builder(
@@ -375,6 +376,7 @@ def engine_try_config(platform_args, fuchsia_ctl_version):
         recipe = "web_engine",
         repo = repos.ENGINE,
         list_view_name = list_view_name,
+        properties = engine_properties(gcs_goldens_bucket = "flutter_logs"),
         **platform_args["mac"]
     )
     common.windows_try_builder(
@@ -382,6 +384,7 @@ def engine_try_config(platform_args, fuchsia_ctl_version):
         recipe = "web_engine",
         repo = repos.ENGINE,
         list_view_name = list_view_name,
+        properties = engine_properties(gcs_goldens_bucket = "flutter_logs"),
         **platform_args["windows"]
     )
 
