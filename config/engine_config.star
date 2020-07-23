@@ -73,6 +73,7 @@ def engine_properties(
         ios_release = False,
         build_android_jit_release = False,
         no_bitcode = False,
+        gcs_goldens_bucket = "",
         fuchsia_ctl_version = ""):
     """Creates build properties for engine based on parameters.
 
@@ -88,6 +89,7 @@ def engine_properties(
       ios_release(booelan): True if we need to build ios release version.
       build_android_jit_release(boolean): True if we need to build android jit release version.
       no_bitcode(boolean): True if we need to disable bit code.
+      gcs_goldens_bucket: Bucket to upload failing golden tests' results for web engine.
       fuchsia_ctl_version(str): The version of the fuchsia controller to use.
 
     Returns:
@@ -101,6 +103,7 @@ def engine_properties(
         "build_android_vulkan": build_android_vulkan,
         "build_ios": build_ios,
         "build_android_jit_release": build_android_jit_release,
+        "gcs_goldens_bucket": gcs_goldens_bucket,
     }
     if (build_ios):
         properties["ios_debug"] = ios_debug
@@ -162,6 +165,7 @@ def engine_prod_config(platform_args, branch, version, ref, fuchsia_ctl_version)
     common.linux_prod_builder(
         name = builder_name("Linux%s Web Engine|lwe", branch),
         recipe = full_recipe_name("web_engine", version),
+        properties = engine_properties(gcs_goldens_bucket = "flutter_logs"),
         console_view_name = console_view_name,
         triggered_by = [trigger_name],
         triggering_policy = triggering_policy,
@@ -170,6 +174,7 @@ def engine_prod_config(platform_args, branch, version, ref, fuchsia_ctl_version)
     common.mac_prod_builder(
         name = builder_name("Mac%s Web Engine|mwe", branch),
         recipe = full_recipe_name("web_engine", version),
+        properties = engine_properties(gcs_goldens_bucket = "flutter_logs"),
         console_view_name = console_view_name,
         triggered_by = [trigger_name],
         triggering_policy = triggering_policy,
@@ -178,6 +183,7 @@ def engine_prod_config(platform_args, branch, version, ref, fuchsia_ctl_version)
     common.windows_prod_builder(
         name = builder_name("Windows%s Web Engine|wwe", branch),
         recipe = full_recipe_name("web_engine", version),
+        properties = engine_properties(gcs_goldens_bucket = "flutter_logs"),
         console_view_name = console_view_name,
         triggered_by = [trigger_name],
         triggering_policy = triggering_policy,
