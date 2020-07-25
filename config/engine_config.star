@@ -165,7 +165,7 @@ def engine_prod_config(platform_args, branch, version, ref, fuchsia_ctl_version)
     common.linux_prod_builder(
         name = builder_name("Linux%s Web Engine|lwe", branch),
         recipe = full_recipe_name("web_engine", version),
-        properties = engine_properties(gcs_goldens_bucket = "flutter_logs"),
+        properties = engine_properties(gcs_goldens_bucket = ""),
         console_view_name = console_view_name,
         triggered_by = [trigger_name],
         triggering_policy = triggering_policy,
@@ -174,7 +174,7 @@ def engine_prod_config(platform_args, branch, version, ref, fuchsia_ctl_version)
     common.mac_prod_builder(
         name = builder_name("Mac%s Web Engine|mwe", branch),
         recipe = full_recipe_name("web_engine", version),
-        properties = engine_properties(gcs_goldens_bucket = "flutter_logs"),
+        properties = engine_properties(gcs_goldens_bucket = ""),
         console_view_name = console_view_name,
         triggered_by = [trigger_name],
         triggering_policy = triggering_policy,
@@ -367,7 +367,7 @@ def engine_try_config(platform_args, fuchsia_ctl_version):
         repo = repos.ENGINE,
         add_cq = True,
         list_view_name = list_view_name,
-        properties = engine_properties(gcs_goldens_bucket = "flutter_logs"),
+        properties = engine_properties(gcs_goldens_bucket = ""),
         **platform_args["linux"]
     )
     common.mac_try_builder(
@@ -375,7 +375,7 @@ def engine_try_config(platform_args, fuchsia_ctl_version):
         recipe = "web_engine",
         repo = repos.ENGINE,
         list_view_name = list_view_name,
-        properties = engine_properties(gcs_goldens_bucket = "flutter_logs"),
+        properties = engine_properties(gcs_goldens_bucket = ""),
         **platform_args["mac"]
     )
     common.windows_try_builder(
