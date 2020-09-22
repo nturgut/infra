@@ -53,7 +53,15 @@ def full_recipe_name(recipe_name, version):
 
 def engine_recipes(version):
     """Creates a luci recipe for a given code version."""
-    for name in ["engine", "web_engine", "engine_builder", "femu_test", "engine/scenarios"]:
+    recipe_list = [
+        "engine",
+        "web_engine",
+        "engine_builder",
+        "femu_test",
+        "engine/scenarios",
+        "engine/web_engine_framework",
+    ]
+    for name in recipe_list:
         luci.recipe(
             name = full_recipe_name(name, version),
             cipd_package =
