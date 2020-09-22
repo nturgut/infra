@@ -221,6 +221,7 @@ def engine_prod_config(platform_args, branch, version, ref, fuchsia_ctl_version)
         priority = 30 if branch == "master" else 25,
         **platform_args["linux"]
     )
+
     # Defines engine Linux builders
     common.linux_prod_builder(
         name = builder_name("Linux%s Host Engine|host", branch),
