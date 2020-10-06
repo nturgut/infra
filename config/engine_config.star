@@ -221,7 +221,9 @@ def engine_prod_config(platform_args, branch, version, ref, fuchsia_ctl_version)
         properties = engine_properties(
             framework = True,
             shard = "web_tests",
-            subshards = ["0", "1", "2", "3", "4", "5", "6", "7_last"],
+            subshards = [
+              "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11_last"
+            ],
         ),
         console_view_name = console_view_name,
         triggered_by = [trigger_name],
@@ -467,7 +469,9 @@ def engine_try_config(platform_args, fuchsia_ctl_version):
         properties = engine_properties(
             framework = True,
             shard = "web_tests",
-            subshards = ["0", "1", "2", "3", "4", "5", "6", "7_last"],
+            subshards = [
+              "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11_last"
+            ],
         ),
         **platform_args["linux"]
     )
