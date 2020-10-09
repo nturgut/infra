@@ -276,7 +276,21 @@ def framework_prod_config(branch, version, testing_ref, release_ref):
             swarming.cache(name = "pub_cache", path = ".pub_cache"),
         ],
     )
-
+    common.linux_prod_builder(
+        name = "Linux%s web_e2e_test|web_e2e" % ("" if branch == "master" else " " + branch),
+        recipe = new_recipe_name,
+        console_view_name = console_view_name,
+        triggered_by = [trigger_name],
+        triggering_policy = triggering_policy,
+        properties = {
+            "validation": "web_e2e_test",
+            "validation_name": "Web e2e tests",
+            "dependencies": [{"dependency": "chrome_and_driver"}],
+        },
+        caches = [
+            swarming.cache(name = "pub_cache", path = ".pub_cache"),
+        ],
+    )
     common.linux_prod_builder(
         name = "Linux%s build_gallery|dg" % ("" if branch == "master" else " " + branch),
         recipe = new_recipe_name,
@@ -637,6 +651,20 @@ def framework_try_config():
         properties = {
             "validation": "web_smoke_test",
             "validation_name": "Web smoke tests",
+            "dependencies": [{"dependency": "chrome_and_driver"}],
+        },
+        caches = [
+            swarming.cache(name = "pub_cache", path = ".pub_cache"),
+        ],
+    )
+    common.linux_try_builder(
+        name = "Linux web_e2e_test|web_e2e",
+        recipe = "flutter/flutter",
+        repo = repos.FLUTTER,
+        list_view_name = list_view_name,
+        properties = {
+            "validation": "web_e2e_test",
+            "validation_name": "Web e2e tests",
             "dependencies": [{"dependency": "chrome_and_driver"}],
         },
         caches = [
