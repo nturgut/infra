@@ -643,6 +643,8 @@ def framework_try_config():
             swarming.cache(name = "pub_cache", path = ".pub_cache"),
         ],
     )
+    # These tests are integration tests using integration_test (aka e2e)
+    # package.
     common.linux_try_builder(
         name = "Linux web_e2e_test|web_e2e",
         recipe = "flutter/flutter",
